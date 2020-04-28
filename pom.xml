@@ -180,6 +180,13 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>com.newrelic.agent.java</groupId>
+      <artifactId>newrelic-java</artifactId>
+      <version>5.11.0</version>
+      <type>zip</type>
+      <scope>provided</scope>
+    </dependency>
     <!--<dependency>-->
     <!--<groupId>ch.qos.logback</groupId>-->
     <!--<artifactId>logback-classic</artifactId>-->
@@ -380,6 +387,29 @@
             </manifest>
           </archive>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>unpack-newrelic</id>
+            <goals>
+              <goal>unpack-dependencies</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <includeGroupIds>com.newrelic.agent.java</includeGroupIds>
+              <includeArtifactIds>newrelic-java</includeArtifactIds>
+              <overWriteReleases>false</overWriteReleases>
+              <overWriteSnapshots>false</overWriteSnapshots>
+              <overWriteIfNewer>true</overWriteIfNewer>
+              <outputDirectory>${project.basedir}</outputDirectory>
+              <destFileName>newrelic</destFileName>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <!-- No usable codegen at the moment... -->
       <!--<plugin>-->

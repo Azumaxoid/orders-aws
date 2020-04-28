@@ -36,6 +36,7 @@ $DOCKER_CMD run --rm $DOCKER_UID_ARGS \
 
 cp -r $CODE_DIR/docker $CODE_DIR/target/docker/
 cp $CODE_DIR/target/uberjar.jar $CODE_DIR/target/docker/${IMAGE}/app.jar
+cp -r $CODE_DIR/newrelic/ $CODE_DIR/target/docker/${IMAGE}/newrelic
 
 
 REPO=${GROUP}/${IMAGE}

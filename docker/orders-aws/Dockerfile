@@ -15,9 +15,11 @@ RUN	addgroup -g ${SERVICE_GID} ${SERVICE_GROUP} && \
 
 WORKDIR /usr/src/app
 COPY *.jar ./app.jar
+COPY ./newrelic /newrelic
 
 RUN	chown -R ${SERVICE_USER}:${SERVICE_GROUP} ./app.jar
+RUN	chown -R ${SERVICE_USER}:${SERVICE_GROUP} /newrelic
 
 USER ${SERVICE_USER}
 
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/urandom","-jar","./app.jar", "--port=80"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/urandom","-javaagent:/newrelic/newrelic.jar", "-jar","./app.jar", "--port=80"]
